@@ -8,7 +8,7 @@ module.exports.createUser = async (data) => {
     const result = await User.insertOne(data);
     // result.insertedId
 
-    return result.insertedId;
+    return { _id: result.insertedId, ...data };
   } catch (error) {
     console.log(error);
   }
@@ -20,9 +20,9 @@ module.exports.deleteUserById = async (id) => {
 
     const result = await User.deleteOne({ _id: ObjectId(id) });
 
-    console.log(result);
+    // user = findOne({ _id: ObjectId(id) })
 
-    return result;
+    return result.deletedCount > 0;
   } catch (error) {
     console.log(error);
   }
@@ -46,12 +46,12 @@ module.exports.findUsers = async (filter, page = 1, rows = 5) => {
 
     console.log(page, rows);
 
-    const result = await User.find(filter) // WHERE
+    const results = await User.find(filter) // WHERE
       .skip((page - 1) * rows) /// OFFSET
       .limit(rows) // LIMIT
       .toArray();
 
-    return result;
+    return results;
   } catch (error) {
     console.log(error);
   }
