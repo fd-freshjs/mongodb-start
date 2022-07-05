@@ -2,6 +2,7 @@ const { Server } = require("socket.io");
 
 const eventTypes = {
   HELLO: "hello",
+  NEW_MESSAGE: 'newMessage',
 };
 
 module.exports = (httpServer) => {
@@ -15,7 +16,6 @@ module.exports = (httpServer) => {
 
   io.on("connection", (socket) => {
     // socket это конкретный пользователь
-    console.log(socket);
 
     console.log("some user has connected");
     socket.emit(eventTypes.HELLO, { data: "test" });
@@ -23,5 +23,10 @@ module.exports = (httpServer) => {
     socket.on(eventTypes.HELLO, (data) => {
       console.log("кто то сказал", data);
     });
+
+
+    setTimeout(() => {
+      socket.emit(eventTypes.NEW_MESSAGE, { body: 'hello msg', _id: '123' })
+    }, 2000);
   });
 };

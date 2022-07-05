@@ -13,7 +13,9 @@ socket.on("hello", (data) => {
 
 socket.on('newMessage', (newMsg) => {
   const sub = subscribers.find(sub => sub.eventName === 'newMessage');
-  sub.callback(newMsg);
+  if (sub) {
+    sub.callback(newMsg);
+  }
 });
 
 const subscribers = [];
