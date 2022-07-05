@@ -3,6 +3,7 @@ const { Server } = require("socket.io");
 const eventTypes = {
   HELLO: "hello",
   NEW_MESSAGE: 'newMessage',
+  SEND_MESSAGE: 'sendMessage',
 };
 
 module.exports = (httpServer) => {
@@ -18,15 +19,18 @@ module.exports = (httpServer) => {
     // socket это конкретный пользователь
 
     console.log("some user has connected");
-    socket.emit(eventTypes.HELLO, { data: "test" });
 
-    socket.on(eventTypes.HELLO, (data) => {
-      console.log("кто то сказал", data);
+    // отправить конкретному пользователю
+    // socket.emit()
+
+    socket.on(eventTypes.SEND_MESSAGE, (data) => {
+      // save to DB
+      // messageService.crearMsg(data);
+
+      // socket.broadcast()
+      io.emit(eventTypes.NEW_MESSAGE, data);
+
+      console.log(data);
     });
-
-
-    setTimeout(() => {
-      socket.emit(eventTypes.NEW_MESSAGE, { body: 'hello msg', _id: '123' })
-    }, 2000);
   });
 };

@@ -1,30 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ChatForm from "../ChatForm";
-import { addSubscriber } from '../../api/ws';
-import { useEffect } from "react";
-// import MessageList from "../MessageList";
+import MessageList from "../MessageList";
+import { addSubscriber, socket } from "../../api/ws";
 
 //rfce
 function Chat() {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    addSubscriber('newMessage', (msg) => {
-      setMessages(prev => [...prev, msg]);
+    addSubscriber("newMessage", (msg) => {
+      setMessages((prev) => [...prev, msg]);
     });
   }, []);
 
-  const handleSubmit = () => {
+  const handleSubmit = (values, formikBag) => {
     // send data to server
-    
+    socket.emit("sendMessage", values);
   };
 
   console.log(messages);
 
   return (
     <div>
-      {/* <MessageList list={messages} /> */}
       <ChatForm onSubmit={handleSubmit} />
+      <MessageList list={messages} />
     </div>
   );
 }
