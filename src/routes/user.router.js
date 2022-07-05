@@ -4,6 +4,12 @@ const { createUserContr, deleteUserByIdContr, findUserByIdContr, findUsersContr 
 // /api/users
 const userRouter = Router();
 
+userRouter.get('/messages', (req, res, next) => {
+  setTimeout(() => {
+    res.send({ text: 'test text' })
+  }, 15000);
+});
+
 userRouter.post('/', createUserContr);
 
 userRouter.get('/:id', findUserByIdContr);

@@ -2,7 +2,6 @@ const { User } = require("../db/");
 
 module.exports.createUser = async (data) => {
   const result = await User.create(data);
-  // result.insertedId
 
   return result;
 };
