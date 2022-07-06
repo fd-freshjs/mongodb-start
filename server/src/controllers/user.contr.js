@@ -1,16 +1,4 @@
-const { createUser, deleteUserById, findUserById, findUsers } = require("../services/user.service");
-
-module.exports.createUserContr = async (req, res, next) => {
-  try {
-    const data = req.body;
-
-    const createdUser = await createUser(data);
-
-    res.status(200).send({ data: createdUser });
-  } catch (error) {
-    next(error);
-  }
-};
+const { deleteUserById, findUserById, findUsers } = require("../services/user.service");
 
 module.exports.deleteUserByIdContr = async (req, res, next) => {
   try {
@@ -49,3 +37,12 @@ module.exports.findUsersContr = async (req, res, next) => {
     next(error);
   }
 };
+
+module.exports.updateUserContr = async (req, res, next) => {
+  try {
+    
+    res.send('ok')
+  } catch (error) {
+    next(error);
+  }
+}

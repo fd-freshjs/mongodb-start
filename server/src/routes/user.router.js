@@ -1,18 +1,14 @@
 const { Router } = require('express');
-const { createUserContr, deleteUserByIdContr, findUserByIdContr, findUsersContr } = require("../controllers/user.contr");
-const { registerUserValidateMW } = require('../middlewares/user.mw');
+const { updateUserContr, deleteUserByIdContr, findUserByIdContr, findUsersContr } = require("../controllers/user.contr");
 
 // /api/users
 const userRouter = Router();
 
-userRouter.post('/', registerUserValidateMW, createUserContr);
-
 userRouter.get('/:id', findUserByIdContr);
 userRouter.get('/', findUsersContr);
 
-userRouter.patch('/', createUserContr);
+userRouter.patch('/', updateUserContr);
 
 userRouter.delete('/:id', deleteUserByIdContr);
-
 
 module.exports = userRouter;
