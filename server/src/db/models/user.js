@@ -1,4 +1,6 @@
+const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
+const { SALT_ROUNDS } = require("../../constants");
 
 const userSchema = new mongoose.Schema({
   firstname: {
@@ -29,7 +31,16 @@ const userSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-  }
+  },
+  password: {
+    type: String, // TEXT
+    required: true,
+    set: (password) => {
+      const pass_hash = bcrypt.hashSync(password, SALT_ROUNDS);
+
+      return pass_hash;
+    },
+  },
 });
 
 module.exports = mongoose.model("users", userSchema);
