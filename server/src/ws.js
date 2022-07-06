@@ -19,14 +19,14 @@ module.exports = (httpServer) => {
     // отправить конкретному пользователю
     // socket.emit()
 
-    socket.on(wsEventTypes.CREATE_MESSAGE, (data) => {
+    socket.on(wsEventTypes.CREATE_MESSAGE, async (data) => {
       // save to DB
-      // const createdMsg = createMsg(data);
+      const createdMsg = await createMsg(data);
 
+      console.log(createdMsg);
       // socket.broadcast()
-      io.emit(wsEventTypes.NEW_MESSAGE, data);
+      io.emit(wsEventTypes.NEW_MESSAGE, createdMsg);
 
-      console.log(data);
     });
   });
 };

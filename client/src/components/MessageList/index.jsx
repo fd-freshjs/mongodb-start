@@ -6,7 +6,7 @@ function MessageList(props) {
   return <ul>
     {messages.map(msg => {
       return <li key={msg._id}>
-        {msg.body}
+        {msg.author.firstname} {msg.author.lastname}: {msg.body}
       </li>
     })}
   </ul>;

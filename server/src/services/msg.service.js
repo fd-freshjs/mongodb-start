@@ -1,11 +1,8 @@
-const mongoose = require("mongoose");
 const { User, Msg } = require("../db/");
 
 module.exports.createMsg = async (data) => {
   // check if author and user_to exists
-  const author = await User.findOne({ _id: new mongoose.Types.ObjectId(data.author_id) });
-
-  console.log(author);
+  const author = await User.findOne({ _id: data.author_id });
 
   if (!author) {
     throw new Error("404 Author not found");
@@ -19,9 +16,10 @@ module.exports.createMsg = async (data) => {
   }
 
   const result = await Msg.create(data);
-  // result.insertedId
 
-  return result;
+  const msg = { ...result.toObject(), author };
+
+  return msg;
 };
 
 module.exports.deleteMsgById = async (id) => {
