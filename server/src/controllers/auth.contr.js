@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const { createAccessToken } = require('../services/token.service');
 const { createUser, findByEmail } = require("../services/user.service");
 
 module.exports.registerUserContr = async (req, res, next) => {
@@ -15,6 +16,7 @@ module.exports.registerUserContr = async (req, res, next) => {
 
 module.exports.loginUserContr = async (req, res, next) => {
   try {
+    /* LOGIN PART */
     const data = req.body;
 
     if (!data.email || !data.password) {
@@ -34,9 +36,13 @@ module.exports.loginUserContr = async (req, res, next) => {
     if (!isPassValid) {
       throw new Error('Invalid login or password');
     }
-    
+
+    /* TOKEN PART */
     foundUser.password = undefined;
-    res.status(200).send({ data: foundUser });
+
+    const accessToken = await createAccessToken({ id: foundUser._id, email: foundUser.email });
+
+    res.status(200).send({ data: foundUser, tokens: { access: accessToken } });
   } catch (error) {
     next(error);
   }

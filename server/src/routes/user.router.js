@@ -7,8 +7,8 @@ const userRouter = Router();
 userRouter.get('/:id', findUserByIdContr);
 userRouter.get('/', findUsersContr);
 
-userRouter.patch('/', updateUserContr);
+userRouter.patch('/', checkTokenMw, updateUserContr);
 
-userRouter.delete('/:id', deleteUserByIdContr);
+userRouter.delete('/:id', checkTokenMw, deleteUserByIdContr);
 
 module.exports = userRouter;
