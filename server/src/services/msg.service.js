@@ -1,16 +1,21 @@
+const mongoose = require("mongoose");
 const { User, Msg } = require("../db/");
 
 module.exports.createMsg = async (data) => {
   // check if author and user_to exists
-  const author = await User.findById(data.author_id).exec();
+  const author = await User.findOne({ _id: new mongoose.Types.ObjectId(data.author_id) });
+
+  console.log(author);
 
   if (!author) {
     throw new Error("404 Author not found");
   }
 
-  const interlocutor = await User.findById(data.to_user_id).exec();
-  if (!interlocutor) {
-    throw new Error("404 Interlocutor not found");
+  if (data.to_user_id) {
+    const interlocutor = await User.findById(data.to_user_id).exec();
+    if (!interlocutor) {
+      throw new Error("404 Interlocutor not found");
+    }
   }
 
   const result = await Msg.create(data);

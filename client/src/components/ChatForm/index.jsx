@@ -12,11 +12,11 @@ function ChatForm(props) {
       {() => {
         return (
           <Form>
-            <Field type="text" name="author_id" />
+            <Field type="text" name="author_id" placeholder="Author Id" />
 
-            <Field type="text" name="body" />
+            <Field type="text" name="body" placeholder="text" />
 
-            <button type="submit"></button>
+            <button type="submit">Send</button>
           </Form>
         );
       }}

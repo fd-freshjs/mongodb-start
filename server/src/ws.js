@@ -1,17 +1,13 @@
 const { Server } = require("socket.io");
-
-const eventTypes = {
-  HELLO: "hello",
-  NEW_MESSAGE: 'newMessage',
-  SEND_MESSAGE: 'sendMessage',
-};
+const { createMsg } = require('./services/msg.service');
+const { wsEventTypes } = require('./constants');
 
 module.exports = (httpServer) => {
   // io это сервер-слушатель
   const io = new Server(httpServer, {
     // options
     cors: {
-      origin: ["http://localhost:3000/"],
+      origin: ["http://localhost:3000", "https://fine-shirts-cry-95-132-237-235.loca.lt"],
     },
   });
 
@@ -23,12 +19,12 @@ module.exports = (httpServer) => {
     // отправить конкретному пользователю
     // socket.emit()
 
-    socket.on(eventTypes.SEND_MESSAGE, (data) => {
+    socket.on(wsEventTypes.CREATE_MESSAGE, (data) => {
       // save to DB
-      // messageService.crearMsg(data);
+      // const createdMsg = createMsg(data);
 
       // socket.broadcast()
-      io.emit(eventTypes.NEW_MESSAGE, data);
+      io.emit(wsEventTypes.NEW_MESSAGE, data);
 
       console.log(data);
     });
