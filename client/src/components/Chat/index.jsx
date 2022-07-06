@@ -14,6 +14,7 @@ function Chat() {
 
   useEffect(() => {
     addSubscriber(NEW_MESSAGE, (msg) => {
+      console.log('new msg', msg);
       setMessages((prev) => [...prev, msg]);
     });
   }, []);

@@ -32,6 +32,12 @@ const userSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
   },
+  email: {
+    type: String,
+    required: true,
+    min: 7,
+    max: 48,
+  },
   password: {
     type: String, // TEXT
     required: true,

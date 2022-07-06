@@ -9,7 +9,7 @@ module.exports.createMsg = async (data) => {
   }
 
   if (data.to_user_id) {
-    const interlocutor = await User.findById(data.to_user_id).exec();
+    const interlocutor = await User.findOne({ _id: data.to_user_id }).exec();
     if (!interlocutor) {
       throw new Error("404 Interlocutor not found");
     }
@@ -31,7 +31,7 @@ module.exports.deleteMsgById = async (id) => {
 };
 
 module.exports.findMsgById = async (id) => {
-  const result = await Msg.findById(id).exec();
+  const result = await Msg.findOne({ _id: id }).exec();
 
   return result;
 };
@@ -45,7 +45,7 @@ module.exports.findMsgs = async (filter, page = 1, rows = 5) => {
   return results;
 };
 
-module.exports.updateUsetById = async (id, data = {}) => {
+module.exports.updateMsgById = async (id, data = {}) => {
   // delete author_id and user_to fields
 
   const updatedMsg = await Msg.updateOne({ _id: id }, { $set: { ...data } });
@@ -54,7 +54,7 @@ module.exports.updateUsetById = async (id, data = {}) => {
     throw new Error("404 Msg not found");
   }
 
-  const foundMsg = await Msg.findById(id).exec();
+  const foundMsg = await Msg.findOne({ _id: id }).exec();
 
   return foundMsg;
 };

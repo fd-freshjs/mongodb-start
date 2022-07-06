@@ -23,7 +23,7 @@ module.exports = (httpServer) => {
       // save to DB
       const createdMsg = await createMsg(data);
 
-      console.log(createdMsg);
+      console.log('create msg', createdMsg);
       // socket.broadcast()
       io.emit(wsEventTypes.NEW_MESSAGE, createdMsg);
 

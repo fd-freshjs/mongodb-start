@@ -28,7 +28,7 @@ module.exports.findUsers = async (filter, page = 1, rows = 5) => {
   return results;
 };
 
-module.exports.updateUsetById = async (id, data = {}) => {
+module.exports.updateUserById = async (id, data = {}) => {
   const updatedUser = await User.updateOne({ _id: id }, { $set: { ...data } });
 
   if (updatedUser.modifiedCount !== 1) {

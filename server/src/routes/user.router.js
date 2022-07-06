@@ -1,16 +1,11 @@
 const { Router } = require('express');
 const { createUserContr, deleteUserByIdContr, findUserByIdContr, findUsersContr } = require("../controllers/user.contr");
+const { registerUserValidateMW } = require('../middlewares/user.mw');
 
 // /api/users
 const userRouter = Router();
 
-userRouter.get('/messages', (req, res, next) => {
-  setTimeout(() => {
-    res.send({ text: 'test text' })
-  }, 15000);
-});
-
-userRouter.post('/', createUserContr);
+userRouter.post('/', registerUserValidateMW, createUserContr);
 
 userRouter.get('/:id', findUserByIdContr);
 userRouter.get('/', findUsersContr);
