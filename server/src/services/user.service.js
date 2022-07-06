@@ -28,6 +28,12 @@ module.exports.findUsers = async (filter, page = 1, rows = 5) => {
   return results;
 };
 
+module.exports.findByEmail = async (emailFilter) => {
+  const result = await User.findOne({ email: emailFilter }); // WHERE
+
+  return result;
+};
+
 module.exports.updateUserById = async (id, data = {}) => {
   const updatedUser = await User.updateOne({ _id: id }, { $set: { ...data } });
 
