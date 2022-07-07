@@ -5,7 +5,7 @@ const {
 } = CONSTANTS;
 
 // localhost:5000
-export const socket = io("https://97b6-95-132-237-235.eu.ngrok.io", {
+export const socket = io("http://localhost:5000", {
   auth: { userId: "123" },
 });
 

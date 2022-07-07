@@ -7,6 +7,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get('/', (req, res, next) => {
+  console.log(process.env.APP_NAME);
+  res.send('hello from container');
+})
+
 app.use('/api', router);
 
 // error handling

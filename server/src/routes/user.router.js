@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const { updateUserContr, deleteUserByIdContr, findUserByIdContr, findUsersContr } = require("../controllers/user.contr");
+const { checkTokenMw } = require('../middlewares/token.mw');
 
 // /api/users
 const userRouter = Router();

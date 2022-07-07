@@ -7,7 +7,7 @@ module.exports = (httpServer) => {
   const io = new Server(httpServer, {
     // options
     cors: {
-      origin: ["http://localhost:3000", "https://fine-shirts-cry-95-132-237-235.loca.lt"],
+      origin: ["http://localhost:3000"],
     },
   });
 
